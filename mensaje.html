@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.6.0.min.js"> </script>
+    <title>Mensaje</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    textarea {
+        display: block;
+        margin: 0 auto 20px;
+        width: 500px;
+        height: 300px;
+        border:none;
+        border:2px solid #a7a7a7;
+        border-radius: 6px;
+        padding:10px;
+        outline: none;
+        box-shadow: 0px 0px 25px #b6b6b6;
+
+    }
+
+    h1{
+       
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    } 
+    .header{
+        height:100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .btn{
+        border:none;
+        border-radius: 6px;
+        border:2px solid #f8f8f8;
+        cursor: pointer;
+        outline: none;
+        background-color: #e4e4e4;
+        width: 500px;
+        height: 30px;
+        display: block;
+        margin: 0 auto 3px;
+    }
+    .btn:hover {
+        border:2px solid #4d7ce0;
+        box-shadow: 0px 0px 7px #b3b3b3;
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
+<body>
+    <header class="header">
+        <h1>Consultar</h1>
+    </header>
+    <main>
+
+        <form action="" method="POST">
+            
+            <!--<input type="text" name="mensaje" id="mensaje" placeholder="Escriba un mensaje...">-->
+            
+            <textarea name="mensaje" id="mensaje" cols="30" rows="10" placeholder="Escriba su mensaje..."></textarea>
+            <input type="button" value="Enviar" id="enviar" class = 'btn'>
+            
+        </form>
+        
+        <a href="index.html"><input type="button" value="Volver al inicio" class="btn"></a>
+        
+        </main>
+        <script>
+            
+            var mensaje = document.getElementById('mensaje');
+            
+        enviar.addEventListener("click",function(){
+            postMensaje();
+        })
+
+        function postMensaje(){
+            var ajax = $.ajax({
+              type:"POST",
+              url:"https://gd18ab190731489-gastosbd1.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/message/message",
+              data:{
+                    messagetext:mensaje.value
+                } 
+            })
+            ajax.done(function(g){
+                console.log("the message is:");
+                console.log(g);
+                window.alert('Mensaje enviado');
+                mensaje.value=null;
+            })
+            ajax.fail(function(g){
+                console.log("not send sorry");
+                console.log(g);
+                window.alert('Hubo un error al enviar el mensaje, intente de nuevo');
+            })
+        } 
+
+
+    </script>
+</body>
+</html>
